@@ -1,0 +1,35 @@
+<div class="nav flex">
+  <div *ngIf="isLoggedIn; else guest_content">{{ user.FirstName }} {{ user.LastName }}</div>
+  <ng-template #guest_content>
+    <div>Guest</div>
+  </ng-template>
+  <div *ngIf="isLoggedIn; else logout_content">
+    <button (click)="logout()">Log Out</button>
+  </div>
+  <ng-template #logout_content>
+    <div>
+      username: <input [(ngModel)]="loginInput.username" placeholder="Username" />
+      password: <input type="password" [(ngModel)]="loginInput.password" placeholder="Password" />
+      <button (click)="login()">Log In</button>
+    </div>
+  </ng-template>
+</div>
+<div *ngIf="!isLoggedIn" class="register">
+  <h2>Register</h2>
+  <br/>
+  <form #login = "ngForm" (ngSubmit) = "register(login.value)" >
+    <label for="firstName">First Name</label>
+    <input type = "text" name = "firstName" placeholder = "First name" ngModel>
+    <br/>
+    <label for="firstName">Last Name</label>
+    <input type = "text" name = "lastName" placeholder = "Last Name" ngModel>
+    <br/>
+    <label for="firstName">Username</label>
+    <input type = "text" name = "username" placeholder = "Username" ngModel>
+    <br/>
+    <label for="firstName">Password</label>
+    <input type = "password" name = "password" ngModel>
+    <br/>
+    <input type = "submit" value = "submit">
+  </form>
+</div>

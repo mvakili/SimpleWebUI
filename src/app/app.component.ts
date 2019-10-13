@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from './services';
+import { UserService, ChatService } from './services';
 import { Observable } from 'rxjs/Rx';
 import { User } from './models/user';
 
@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
 
   
   public isLoggedIn: boolean;
+  public messages: Array<any>;
   
   user : User = {
     FirstName: '',
@@ -24,18 +25,25 @@ export class AppComponent implements OnInit {
     password: null
   }
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private chatService: ChatService) {
 
   }
   ngOnInit(): void {
+
     this.userService.isLoggedIn().subscribe((res) => {
       this.isLoggedIn = res;
       if(this.isLoggedIn) {
+        this.chatService.startConnection();
+        this.chatService.addChatMessages();
+        this.messages = this.chatService.getMessages();
         this.userService.getProfile().then(u => {
           this.user = u;
         })
+      } else {
+        this.chatService.stopConnection();
       }
     })
+
   }
   logout() {
     this.userService.logout();
@@ -53,6 +61,10 @@ export class AppComponent implements OnInit {
       this.loginInput.password = formData.password;
       this.login();
     })
+  }
+
+  sendMessage(formData) {
+    this.chatService.sendMessage(formData.username, formData.text);
   }
   
   

@@ -13,7 +13,6 @@ import { User } from '../models/user';
 
 export class UserService extends BaseService {
 
-  baseUrl: string = '';
 
   // Observable navItem source
   private _authStatusSource = new BehaviorSubject<boolean>(false);
@@ -23,14 +22,12 @@ export class UserService extends BaseService {
   constructor(private http: Http) {
     super();
     this._authStatusSource.next(!!localStorage.getItem('auth_token'));
-    this.baseUrl = "http://localhost:4000";
   }
 
   register(username: string, password: string, firstName: string, lastName: string): Promise<void> {
-    let body = JSON.stringify({ username, password, firstName, lastName });
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.baseUrl + "/user/register", body, options)
+    return this.http.post(this.baseUrl + "/user/register", { username, password, firstName, lastName }, options)
     .map(res => {
       return;
     })
@@ -45,7 +42,7 @@ export class UserService extends BaseService {
     return this.http
       .post(
       this.baseUrl + '/user/login',
-      JSON.stringify({ username, password }),{ headers }
+      { username, password },{ headers }
       )
       .map(res => res.text())
       .map(res => {

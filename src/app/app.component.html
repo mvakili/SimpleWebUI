@@ -33,3 +33,23 @@
     <input type = "submit" value = "submit">
   </form>
 </div>
+
+<div *ngIf="isLoggedIn" class="register">
+  <h2>Chat</h2>
+  <br/>
+
+  <form #chat = "ngForm" (ngSubmit) = "sendMessage(chat.value)" >
+    <label for="username">Username</label>
+    <input type = "text" name = "username" placeholder = "First name" ngModel>
+    <br/>
+    <label for="message">Message</label>
+    <input type = "text" name = "text" placeholder = "Message" ngModel>
+    <br/>
+    <input type = "submit" value = "submit">
+  </form>
+  <ul>
+    <li *ngFor="let message of messages">
+      {{message.from.firstName + ' ' + message.from.lastName}} => {{message.text}}
+    </li>
+  </ul>
+</div>

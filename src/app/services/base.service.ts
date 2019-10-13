@@ -3,6 +3,8 @@ import { Observable } from 'rxjs/Rx';
 
 export abstract class BaseService {  
     
+    baseUrl = "http://localhost:4000";
+
     constructor() { }
 
     protected handleError(error: any) {

@@ -39,7 +39,7 @@
   <br/>
 
   <form #chat = "ngForm" (ngSubmit) = "sendMessage(chat.value)" >
-    <label for="username">Username</label>
+    <label for="username">To</label>
     <input type = "text" name = "username" placeholder = "First name" ngModel>
     <br/>
     <label for="message">Message</label>
@@ -49,7 +49,7 @@
   </form>
   <ul>
     <li *ngFor="let message of messages">
-      {{message.from.firstName + ' ' + message.from.lastName}} => {{message.text}}
+      {{message.from.username }} => {{message.text}}
     </li>
   </ul>
 </div>

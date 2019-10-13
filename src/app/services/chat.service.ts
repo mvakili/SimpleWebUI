@@ -36,11 +36,13 @@ private hubConnection: signalR.HubConnection
   }
 
   public stopConnection = () => {
-    this.hubConnection.stop()
-    .then(() => {
-      this.messages = [];
-    })
-    .catch(this.handleError)
+    if(this.hubConnection) {
+      this.hubConnection.stop()
+      .then(() => {
+        this.messages = [];
+      })
+      .catch(this.handleError)
+    }
   }
 
  

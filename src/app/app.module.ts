@@ -5,16 +5,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserService, ChatService } from './services';
 import { HttpModule } from '@angular/http';
+import { MapComponent } from './components/map/map.component';
+import { ChatComponent } from './components/chat/chat.component';
+import { DxMapModule, DxPopupModule } from "devextreme-angular";
+import { MapSearchComponent } from './components/map-search/map-search.component'; 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ChatComponent,
+    MapComponent,
+    MapSearchComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpModule,
-    BrowserModule
+    BrowserModule,
+    DxMapModule,
+    DxPopupModule
   ],
   providers: [
     UserService,

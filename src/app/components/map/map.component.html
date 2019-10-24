@@ -1,0 +1,24 @@
+<h2>Set Your Location</h2>
+<br />
+
+<button (click)="onSetLocationClick()">Use Device Location</button>
+
+<dx-map 
+#map
+[center]="center"
+[zoom]="15"
+[height]="400"
+provider="google"
+width="100%" 
+[(markers)]="markers"
+[controls]="true"
+(onClick)="onMapClick($event)"
+key="AIzaSyBB_9VpkF3i390VhWZ0V_C07JurzjXOc-8"
+(onReady)="onMapReady"
+type="roadmap">
+</dx-map>
+
+
+<button (click)="onSaveLocationClick()">Save Location</button>
+
+

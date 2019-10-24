@@ -4,6 +4,9 @@
     <div>Guest</div>
   </ng-template>
   <div *ngIf="isLoggedIn; else logout_content">
+      <a routerLink="/chat" routerLinkActive="active" style="font-size: 14px; margin: 10px;">Chat</a>
+      <a routerLink="/map" routerLinkActive="active" style="font-size: 14px; margin: 10px;">Save Location</a>
+      <a routerLink="/map-search" routerLinkActive="active" style="font-size: 14px; margin: 10px;">Search via map</a>
     <button (click)="logout()">Log Out</button>
   </div>
   <ng-template #logout_content>
@@ -35,21 +38,5 @@
 </div>
 
 <div *ngIf="isLoggedIn" class="register">
-  <h2>Chat</h2>
-  <br/>
-
-  <form #chat = "ngForm" (ngSubmit) = "sendMessage(chat.value)" >
-    <label for="username">To</label>
-    <input type = "text" name = "username" placeholder = "First name" ngModel>
-    <br/>
-    <label for="message">Message</label>
-    <input type = "text" name = "text" placeholder = "Message" ngModel>
-    <br/>
-    <input type = "submit" value = "submit">
-  </form>
-  <ul>
-    <li *ngFor="let message of messages">
-      {{message.from.username }} => {{message.text}}
-    </li>
-  </ul>
+  <router-outlet></router-outlet>
 </div>

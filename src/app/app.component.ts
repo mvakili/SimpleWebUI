@@ -12,7 +12,6 @@ export class AppComponent implements OnInit {
 
   
   public isLoggedIn: boolean;
-  public messages: Array<any>;
   
   user : User = {
     FirstName: '',
@@ -25,7 +24,7 @@ export class AppComponent implements OnInit {
     password: null
   }
 
-  constructor(private userService: UserService, private chatService: ChatService) {
+  constructor(private userService: UserService) {
 
   }
   ngOnInit(): void {
@@ -33,14 +32,10 @@ export class AppComponent implements OnInit {
     this.userService.isLoggedIn().subscribe((res) => {
       this.isLoggedIn = res;
       if(this.isLoggedIn) {
-        this.chatService.startConnection();
-        this.chatService.addChatMessages();
-        this.messages = this.chatService.getMessages();
+
         this.userService.getProfile().then(u => {
           this.user = u;
         })
-      } else {
-        this.chatService.stopConnection();
       }
     })
 
@@ -61,10 +56,6 @@ export class AppComponent implements OnInit {
       this.loginInput.password = formData.password;
       this.login();
     })
-  }
-
-  sendMessage(formData) {
-    this.chatService.sendMessage(formData.username, formData.text);
   }
   
   

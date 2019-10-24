@@ -30,15 +30,7 @@ export class MapSearchComponent implements OnInit {
   onSetLocationClick() {
     if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.mapComponent.instance.addMarker({
-          location: [position.coords.latitude, position.coords.longitude],
-          tooltip: "You're here"
-        })
-
-        for (let index = 0; index < this.mapComponent.markers.length; index++) {
-          const marker = this.mapComponent.markers[index];
-          this.mapComponent.instance.removeMarker(marker);
-        }
+        this.mapComponent.center = { lat: position.coords.latitude, lng: position.coords.longitude};
       });
     }
   }
@@ -55,7 +47,7 @@ export class MapSearchComponent implements OnInit {
       r.forEach(u => {
         this.mapComponent.instance.addMarker({ location: { lat: u.Location.X, lng: u.Location.Y}, tooltip: `${u.User.FirstName} ${u.User.LastName}`});
       });
-      this.mapComponent.center = [{lat: 30, lng: 30}]
+      this.mapComponent.instance.endUpdate();
     })
   }
 }

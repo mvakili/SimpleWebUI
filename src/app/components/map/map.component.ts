@@ -37,6 +37,7 @@ export class MapComponent implements OnInit {
           location: {lat: position.coords.latitude, lng: position.coords.longitude},
           tooltip: "You're here"
         })
+        this.mapComponent.center = {lat: position.coords.latitude, lng: position.coords.longitude};
       });
     }
   }
@@ -46,7 +47,7 @@ export class MapComponent implements OnInit {
       const marker = this.mapComponent.markers[index];
       this.mapComponent.instance.removeMarker(marker);
     }
-    this.mapComponent.instance.addMarker({ location: e.location, tooltip: "You're here" });
+    this.mapComponent.instance.addMarker({ location: {lat: e.location.lat, lng: e.location.lng}, tooltip: "You're here" });
   }
 
   onSaveLocationClick() {

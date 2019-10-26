@@ -3,23 +3,38 @@
 
 <button (click)="onSetLocationClick()">Use Device Location</button>
 
-<dx-map 
-#map
-[center]="center"
-[zoom]="15"
-[height]="400"
-provider="google"
-width="100%" 
-[autoAdjust]="false"
-[(markers)]="markers"
-[controls]="false"
-(onReady)="onMapReady"
-markerIconSrc="assets/firstaid.png" 
-key="AIzaSyBB_9VpkF3i390VhWZ0V_C07JurzjXOc-8"
-type="roadmap">
-</dx-map>
-
+<dx-box direction="row" width="100%" style="margin-top: 20px;margin-bottom: 20px;">
+    <dxi-item class="rect demo-dark" [ratio]="1">
+        <div class="list-container">
+            <dx-list [items]="markers" [(selectedItems)]="selectedMarkers" (onSelectionChanged)="onSelectionChanged($event)" selectionMode="multiple">
+                <div *dxTemplate="let marker of 'item'">
+                    <div class="list-item">
+                        <img src="assets/user.jpg" height="200"/>&nbsp;&nbsp;
+                        <span style="margin-left: 10px;">{{marker.User.FirstName}}</span>
+                        <div class="description">{{marker.User.LastName}}</div>
+                        <button style="float: right;" (click)="showDetail(marker)">Show Details</button>
+                    </div>
+                </div>
+            </dx-list>
+        </div>
+    </dxi-item>
+    <dxi-item class="rect demo-dark" [ratio]="2">
+        <div style="width: 700px; height:700px;">
+            <dx-map #map [center]="center" [zoom]="15" [height]="700" provider="google" width="100%" [autoAdjust]="false"
+            [(markers)]="markers" [controls]="false" (onReady)="onMapReady" markerIconSrc="assets/firstaid.png"
+            key="AIzaSyBB_9VpkF3i390VhWZ0V_C07JurzjXOc-8" type="roadmap">
+        </dx-map>
+        </div>
+    </dxi-item>
+</dx-box>
 
 <button (click)="onFindAroundHereClick()">Find users around here</button>
 
 
+<dx-popup class="popup" [showTitle]="true" [title]="selectedMarker.User.FirstName + ' ' + selectedMarker.User.LastName" [dragEnabled]="false"
+[closeOnOutsideClick]="true" [(visible)]="showPopup">
+    <div *dxTemplate="let data of 'content'">
+       {{selectedMarker.User.FirstName}} {{selectedMarker.User.LastName}} 
+
+    </div>
+</dx-popup>

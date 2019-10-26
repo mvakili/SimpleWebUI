@@ -7,7 +7,7 @@ import { UserService, ChatService } from './services';
 import { HttpModule } from '@angular/http';
 import { MapComponent } from './components/map/map.component';
 import { ChatComponent } from './components/chat/chat.component';
-import { DxMapModule, DxPopupModule } from "devextreme-angular";
+import { DxMapModule, DxPopupModule, DxBoxModule, DxListModule } from "devextreme-angular";
 import { MapSearchComponent } from './components/map-search/map-search.component'; 
 @NgModule({
   declarations: [
@@ -23,7 +23,9 @@ import { MapSearchComponent } from './components/map-search/map-search.component
     HttpModule,
     BrowserModule,
     DxMapModule,
-    DxPopupModule
+    DxPopupModule,
+    DxBoxModule,
+    DxListModule
   ],
   providers: [
     UserService,

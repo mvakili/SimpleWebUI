@@ -28,7 +28,6 @@ export class MapComponent implements OnInit {
     var mc = this.mapComponent;
     if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        
         for (let index = 0; index < this.mapComponent.markers.length; index++) {
           const marker = this.mapComponent.markers[index];
           this.mapComponent.instance.removeMarker(marker);
@@ -37,9 +36,13 @@ export class MapComponent implements OnInit {
           location: {lat: position.coords.latitude, lng: position.coords.longitude},
           tooltip: "You're here"
         })
-        this.mapComponent.center = {lat: position.coords.latitude, lng: position.coords.longitude};
+        this.setCenter(this.mapComponent, position.coords);
       });
     }
+  }
+
+  setCenter(map: any, position: any) {
+    map.center = { lat: position.latitude, lng: position.longitude}
   }
 
   onMapClick(e) {

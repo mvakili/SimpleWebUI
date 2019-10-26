@@ -25,7 +25,6 @@ export class MapSearchComponent implements OnInit {
   constructor(private mapService: MapService) { }
 
   ngOnInit() {
-
   }
 
   setLocation(data) {
@@ -38,9 +37,12 @@ export class MapSearchComponent implements OnInit {
   onSetLocationClick() {
     if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.mapComponent.center = { lat: position.coords.latitude, lng: position.coords.longitude};
+        this.setCenter(this.mapComponent, position.coords);
       });
     }
+  }
+  setCenter(map: any, position: any) {
+    map.center = { lat: position.latitude, lng: position.longitude}
   }
 
   onFindAroundHereClick() {
